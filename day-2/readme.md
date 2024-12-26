@@ -67,20 +67,20 @@ Monitoring is the process of keeping an eye on these metrics over time to unders
 
 
 ```bash
-eksctl create cluster --name=observability \
-                      --region=us-east-1 \
-                      --zones=us-east-1a,us-east-1b \
+eksctl create cluster --name=uday \
+                      --region=us-west-2 \
+                      --zones=us-west-2a,us-west-2d \
                       --without-nodegroup
 ```
 ```bash
 eksctl utils associate-iam-oidc-provider \
-    --region us-east-1 \
-    --cluster observability \
+    --region us-west-2 \
+    --cluster uday \
     --approve
 ```
 ```bash
-eksctl create nodegroup --cluster=observability \
-                        --region=us-east-1 \
+eksctl create nodegroup --cluster=uday \
+                        --region=us-west-2 \
                         --name=observability-ng-private \
                         --node-type=t3.medium \
                         --nodes-min=2 \
@@ -95,7 +95,7 @@ eksctl create nodegroup --cluster=observability \
                         --node-private-networking
 
 # Update ./kube/config file
-aws eks update-kubeconfig --name observability
+aws eks update-kubeconfig --name uday
 ```
 
 ### 🧰 Step 2: Install kube-prometheus-stack
